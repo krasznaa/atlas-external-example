@@ -9,12 +9,16 @@ include(CMakePackageConfigHelpers)
 include(CPack)
 include(GNUInstallDirs)
 
+# Set the default library type to build.
+option(BUILD_SHARED_LIBS
+   "Flag for building shared/static libraries" TRUE)
+
 # Collect the header and source file(s).
 file(GLOB HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/include/*/*.h")
 file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cxx")
 
 # Build a shared library with them.
-add_library(atlas_library SHARED ${HEADERS} ${SOURCES})
+add_library(atlas_library ${HEADERS} ${SOURCES})
 target_include_directories(atlas_library PUBLIC
    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
